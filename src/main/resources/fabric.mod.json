@@ -1,0 +1,29 @@
+{
+    "schemaVersion": 1,
+    "id": "common-bridge",
+    "version": "${version}",
+    "name": "Common Bridge",
+    "description": "Bridges mods to Patbox's Common * APIs",
+    "authors": [
+        "BasiqueEvangelist"
+    ],
+    "contact": {
+        "repo": "https://github.com/BasiqueEvangelist/CommonBridge"
+    },
+    "license": "MIT",
+    "icon": "assets/common-bridge/icon.png",
+    "environment": "*",
+    "entrypoints": {
+        "main": [
+            "me.basiqueevangelist.commonbridge.CommonBridge"
+        ]
+    },
+    "mixins": [
+        "common-bridge.mixins.json"
+    ],
+    "depends": {
+        "fabricloader": ">=0.14.17",
+        "fabric": "*",
+        "minecraft": "1.19.x"
+    }
+}
