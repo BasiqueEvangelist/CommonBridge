@@ -41,7 +41,8 @@ public class CoinsCurrency implements EconomyCurrency {
             // No money?
             text.append(Text.literal("0 ")
                 .formatted(Formatting.AQUA));
-            text.append(Text.translatable("currency.numismatic-overhaul." + Currency.BRONZE.name().toLowerCase()));
+            text.append(Text.translatable("currency.numismatic-overhaul." + Currency.BRONZE.name().toLowerCase())
+                .formatted(Formatting.WHITE));
         } else {
             int i = 0;
             for (ItemStack stack : CurrencyConverter.getAsItemStackList(value)) {
@@ -51,7 +52,8 @@ public class CoinsCurrency implements EconomyCurrency {
                     .append(Text.literal(Integer.toString(stack.getCount()))
                         .formatted(Formatting.AQUA))
                     .append(" ");
-                text.append(Text.translatable("currency.numismatic-overhaul." + ((CoinItem) stack.getItem()).currency.name().toLowerCase()));
+                text.append(Text.translatable("currency.numismatic-overhaul." + ((CoinItem) stack.getItem()).currency.name().toLowerCase())
+                    .formatted(Formatting.WHITE));
                 i++;
             }
         }

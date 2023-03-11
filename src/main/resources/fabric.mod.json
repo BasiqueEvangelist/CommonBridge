@@ -21,6 +21,14 @@
     "mixins": [
         "common-bridge.mixins.json"
     ],
+    "custom": {
+        "modmenu": {
+            "badges": ["library"],
+            "links": {
+                "modmenu.discord": "https://wispforest.io/discord"
+            }
+        }
+    },
     "depends": {
         "fabricloader": ">=0.14.17",
         "fabric": "*",
