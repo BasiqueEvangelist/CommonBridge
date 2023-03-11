@@ -94,6 +94,6 @@ public class CoinsCurrency implements EconomyCurrency {
 
     @Override
     public ItemStack icon() {
-        return new ItemStack(NumismaticOverhaulItems.MONEY_BAG);
+        return new ItemStack(NumismaticOverhaulItems.GOLD_COIN);
     }
 }
