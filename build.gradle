@@ -37,6 +37,10 @@ repositories {
     maven { url 'https://maven.wispforest.io' }
     maven { url "https://maven.architectury.dev/" }
     maven { url 'https://maven.blamejared.com' }
+    maven {
+        name = "Fuzs Mod Resources"
+        url = "https://raw.githubusercontent.com/Fuzss/modresources/main/maven/"
+    }
 }
 
 configurations {
@@ -67,6 +71,11 @@ dependencies {
 
 //    modLocalRuntime "dev.ftb.mods:ftb-chunks-fabric:${project.ftb_chunks_version}"
 //    modLocalRuntime "dev.ftb.mods:ftb-library-fabric:${project.ftb_library_version}"
+
+    modCompileOnly "curse.maven:open-parties-and-claims-636608:${project.opac_version}"
+
+    modLocalRuntime "curse.maven:open-parties-and-claims-636608:${project.opac_version}"
+    modLocalRuntime "fuzs.forgeconfigapiport:forgeconfigapiport-fabric:${project.forgeconfigapiport_version}"
 
     modLocalRuntime "maven.modrinth:lazydfu:0.1.2"
 }

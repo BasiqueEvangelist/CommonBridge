@@ -1,8 +1,9 @@
 package me.basiqueevangelist.commonbridge;
 
 import com.mojang.authlib.GameProfile;
-import me.basiqueevangelist.commonbridge.ftbchunks.FTBChunksProtectionProvider;
+import me.basiqueevangelist.commonbridge.ftbchunks.FtbChunksProtectionProvider;
 import me.basiqueevangelist.commonbridge.numismatic.NumismaticEconomyProvider;
+import me.basiqueevangelist.commonbridge.opac.OpacProtectionProvider;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.entity.player.PlayerEntity;
@@ -19,7 +20,10 @@ public class CommonBridge implements ModInitializer {
             NumismaticEconomyProvider.init();
 
         if (FabricLoader.getInstance().isModLoaded("ftbchunks"))
-            FTBChunksProtectionProvider.init();
+            FtbChunksProtectionProvider.init();
+
+        if (FabricLoader.getInstance().isModLoaded("openpartiesandclaims"))
+            OpacProtectionProvider.init();
     }
 
     public static Identifier id(String path) {

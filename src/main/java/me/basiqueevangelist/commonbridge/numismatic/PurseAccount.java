@@ -55,11 +55,11 @@ public abstract class PurseAccount implements EconomyAccount {
 
         if (current < value) {
             return new EconomyTransaction.Simple(
-                true,
+                false,
                 Text.literal(playerName() + " doesn't have enough coins! (¢" + current + " < ¢" + value + ")"),
-                current - value,
                 current,
-                value,
+                current,
+                0,
                 this
             );
         } else {

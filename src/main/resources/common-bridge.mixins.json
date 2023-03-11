@@ -2,8 +2,11 @@
     "required": true,
     "minVersion": "0.8",
     "package": "me.basiqueevangelist.commonbridge.mixin",
+    "plugin": "me.basiqueevangelist.commonbridge.asm.Maldenhagen",
     "compatibilityLevel": "JAVA_17",
     "mixins": [
+        "opac.ChunkProtectionEntityHelperMixin",
+        "opac.ServerCoreMixin"
     ],
     "client": [
     ],

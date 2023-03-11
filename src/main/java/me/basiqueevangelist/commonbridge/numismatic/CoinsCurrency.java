@@ -1,6 +1,7 @@
 package me.basiqueevangelist.commonbridge.numismatic;
 
 import com.glisco.numismaticoverhaul.NumismaticOverhaul;
+import com.glisco.numismaticoverhaul.currency.Currency;
 import com.glisco.numismaticoverhaul.currency.CurrencyConverter;
 import com.glisco.numismaticoverhaul.item.CoinItem;
 import com.glisco.numismaticoverhaul.item.NumismaticOverhaulItems;
@@ -36,16 +37,23 @@ public class CoinsCurrency implements EconomyCurrency {
         text.append(Text.literal("[")
             .formatted(Formatting.GRAY));
 
-        int i = 0;
-        for (ItemStack stack : CurrencyConverter.getAsItemStackList(value)) {
-            if (i > 0) text.append(", ");
+        if (value == 0) {
+            // No money?
+            text.append(Text.literal("0 ")
+                .formatted(Formatting.AQUA));
+            text.append(Text.translatable("currency.numismatic-overhaul." + Currency.BRONZE.name().toLowerCase()));
+        } else {
+            int i = 0;
+            for (ItemStack stack : CurrencyConverter.getAsItemStackList(value)) {
+                if (i > 0) text.append(", ");
 
-            text
-                .append(Text.literal(Integer.toString(stack.getCount()))
-                    .formatted(Formatting.AQUA))
-                .append(" ");
-            text.append(Text.translatable("currency.numismatic-overhaul." + ((CoinItem) stack.getItem()).currency.name().toLowerCase()));
-            i++;
+                text
+                    .append(Text.literal(Integer.toString(stack.getCount()))
+                        .formatted(Formatting.AQUA))
+                    .append(" ");
+                text.append(Text.translatable("currency.numismatic-overhaul." + ((CoinItem) stack.getItem()).currency.name().toLowerCase()));
+                i++;
+            }
         }
 
         text.append(Text.literal("]")
@@ -58,17 +66,26 @@ public class CoinsCurrency implements EconomyCurrency {
     public String formatValue(long value, boolean precise) {
         if (precise) return "¢" + value;
 
+        if (value == 0) {
+        }
+
         StringBuilder sb = new StringBuilder();
 
         sb.append("[");
 
-        int i = 0;
-        for (ItemStack stack : CurrencyConverter.getAsItemStackList(value)) {
-            if (i > 0) sb.append(", ");
+        if (value == 0) {
+            // No money?
+            sb.append("0 ");
+            sb.append(I18n.translate("currency.numismatic-overhaul." + Currency.BRONZE.name().toLowerCase()));
+        } else {
+            int i = 0;
+            for (ItemStack stack : CurrencyConverter.getAsItemStackList(value)) {
+                if (i > 0) sb.append(", ");
 
-            sb.append(stack.getCount()).append(" ");
-            sb.append(I18n.translate("currency.numismatic-overhaul." + ((CoinItem) stack.getItem()).currency.name().toLowerCase()));
-            i++;
+                sb.append(stack.getCount()).append(" ");
+                sb.append(I18n.translate("currency.numismatic-overhaul." + ((CoinItem) stack.getItem()).currency.name().toLowerCase()));
+                i++;
+            }
         }
 
         sb.append("]");

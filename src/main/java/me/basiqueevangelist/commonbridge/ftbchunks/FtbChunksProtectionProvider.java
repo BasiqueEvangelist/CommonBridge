@@ -20,9 +20,9 @@ import net.minecraft.util.math.Box;
 import net.minecraft.world.World;
 import net.minecraft.world.explosion.Explosion;
 
-public class FTBChunksProtectionProvider implements ProtectionProvider {
+public class FtbChunksProtectionProvider implements ProtectionProvider {
     public static final Identifier ID = CommonBridge.id("ftbchunks");
-    public static final FTBChunksProtectionProvider INSTANCE = new FTBChunksProtectionProvider();
+    public static final FtbChunksProtectionProvider INSTANCE = new FtbChunksProtectionProvider();
 
     public static void init() {
         CommonProtection.register(ID, INSTANCE);
@@ -47,8 +47,8 @@ public class FTBChunksProtectionProvider implements ProtectionProvider {
         int maxCZ = (int) Math.ceil(area.maxZ / 16);
 
         for (var chunk : FTBChunksAPI.getManager().getAllClaimedChunks()) {
-            if (chunk.pos.x >= minCX && chunk.pos.x <= maxCX
-             && chunk.pos.z >= minCZ && chunk.pos.z <= maxCZ) {
+            if (chunk.pos.x >= minCX && chunk.pos.x < maxCX
+             && chunk.pos.z >= minCZ && chunk.pos.z < maxCZ) {
                 return true;
             }
         }

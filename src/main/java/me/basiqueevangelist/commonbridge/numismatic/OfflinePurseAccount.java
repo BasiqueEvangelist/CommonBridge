@@ -22,6 +22,7 @@ public class OfflinePurseAccount extends PurseAccount {
 
     @Override
     public long balance() {
+        //noinspection DataFlowIssue
         return OfflineDataLookup.get(ownerId)
             .getCompound("cardinal_components")
             .getCompound("numismatic-overhaul:currency")
@@ -32,6 +33,7 @@ public class OfflinePurseAccount extends PurseAccount {
     public void setBalance(long value) {
         NbtCompound tag = OfflineDataLookup.get(ownerId);
 
+        //noinspection DataFlowIssue
         var ccaTag = tag.getCompound("cardinal_components");
         tag.put("cardinal_components", ccaTag);
 
