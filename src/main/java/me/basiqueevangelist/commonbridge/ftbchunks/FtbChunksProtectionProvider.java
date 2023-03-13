@@ -10,6 +10,7 @@ import dev.ftb.mods.ftblibrary.math.ChunkDimPos;
 import eu.pb4.common.protection.api.CommonProtection;
 import eu.pb4.common.protection.api.ProtectionProvider;
 import me.basiqueevangelist.commonbridge.CommonBridge;
+import me.basiqueevangelist.commonbridge.FakePlayerProvider;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -58,7 +59,7 @@ public class FtbChunksProtectionProvider implements ProtectionProvider {
 
     @Override
     public boolean canBreakBlock(World world, BlockPos pos, GameProfile profile, PlayerEntity player) {
-        player = CommonBridge.tryResolveProtectionPlayer(world, profile, player);
+        player = FakePlayerProvider.tryResolveProtectionPlayer(world, profile, player);
 
         if (player == null) return true;
 
@@ -75,7 +76,7 @@ public class FtbChunksProtectionProvider implements ProtectionProvider {
 
     @Override
     public boolean canPlaceBlock(World world, BlockPos pos, GameProfile profile, PlayerEntity player) {
-        player = CommonBridge.tryResolveProtectionPlayer(world, profile, player);
+        player = FakePlayerProvider.tryResolveProtectionPlayer(world, profile, player);
 
         if (player == null) return true;
 
@@ -84,7 +85,7 @@ public class FtbChunksProtectionProvider implements ProtectionProvider {
 
     @Override
     public boolean canInteractBlock(World world, BlockPos pos, GameProfile profile, PlayerEntity player) {
-        player = CommonBridge.tryResolveProtectionPlayer(world, profile, player);
+        player = FakePlayerProvider.tryResolveProtectionPlayer(world, profile, player);
 
         if (player == null) return true;
 
@@ -94,7 +95,7 @@ public class FtbChunksProtectionProvider implements ProtectionProvider {
 
     @Override
     public boolean canInteractEntity(World world, Entity entity, GameProfile profile, PlayerEntity player) {
-        player = CommonBridge.tryResolveProtectionPlayer(world, profile, player);
+        player = FakePlayerProvider.tryResolveProtectionPlayer(world, profile, player);
 
         if (player == null) return true;
 
@@ -105,7 +106,7 @@ public class FtbChunksProtectionProvider implements ProtectionProvider {
     public boolean canDamageEntity(World world, Entity entity, GameProfile profile, PlayerEntity player) {
         if (entity instanceof LivingEntity) return true;
 
-        player = CommonBridge.tryResolveProtectionPlayer(world, profile, player);
+        player = FakePlayerProvider.tryResolveProtectionPlayer(world, profile, player);
 
         if (player == null) return true;
 

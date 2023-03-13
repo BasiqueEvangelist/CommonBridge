@@ -4,6 +4,7 @@ import com.mojang.authlib.GameProfile;
 import eu.pb4.common.protection.api.CommonProtection;
 import eu.pb4.common.protection.api.ProtectionProvider;
 import me.basiqueevangelist.commonbridge.CommonBridge;
+import me.basiqueevangelist.commonbridge.FakePlayerProvider;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.world.ServerWorld;
@@ -56,7 +57,7 @@ public class OpacProtectionProvider implements ProtectionProvider {
     public boolean canBreakBlock(World world, BlockPos pos, GameProfile profile, PlayerEntity player) {
         if (!(world instanceof ServerWorld sw)) return true;
 
-        player = CommonBridge.tryResolveProtectionPlayer(sw, profile, player);
+        player = FakePlayerProvider.tryResolveProtectionPlayer(sw, profile, player);
 
         if (player == null) return true;
 
@@ -69,7 +70,7 @@ public class OpacProtectionProvider implements ProtectionProvider {
     public boolean canExplodeBlock(World world, BlockPos pos, Explosion explosion, GameProfile profile, PlayerEntity player) {
         if (!(world instanceof ServerWorld sw)) return true;
 
-        player = CommonBridge.tryResolveProtectionPlayer(sw, profile, player);
+        player = FakePlayerProvider.tryResolveProtectionPlayer(sw, profile, player);
 
         var api = OpenPACServerAPI.get(sw.getServer());
 
@@ -86,7 +87,7 @@ public class OpacProtectionProvider implements ProtectionProvider {
     public boolean canPlaceBlock(World world, BlockPos pos, GameProfile profile, PlayerEntity player) {
         if (!(world instanceof ServerWorld sw)) return true;
 
-        player = CommonBridge.tryResolveProtectionPlayer(sw, profile, player);
+        player = FakePlayerProvider.tryResolveProtectionPlayer(sw, profile, player);
 
         if (player == null) return true;
 
@@ -99,7 +100,7 @@ public class OpacProtectionProvider implements ProtectionProvider {
     public boolean canInteractBlock(World world, BlockPos pos, GameProfile profile, PlayerEntity player) {
         if (!(world instanceof ServerWorld sw)) return true;
 
-        player = CommonBridge.tryResolveProtectionPlayer(sw, profile, player);
+        player = FakePlayerProvider.tryResolveProtectionPlayer(sw, profile, player);
 
         if (player == null) return true;
 
@@ -112,7 +113,7 @@ public class OpacProtectionProvider implements ProtectionProvider {
     public boolean canInteractEntity(World world, Entity entity, GameProfile profile, PlayerEntity player) {
         if (!(world instanceof ServerWorld sw)) return true;
 
-        player = CommonBridge.tryResolveProtectionPlayer(sw, profile, player);
+        player = FakePlayerProvider.tryResolveProtectionPlayer(sw, profile, player);
 
         if (player == null) return true;
 
@@ -125,7 +126,7 @@ public class OpacProtectionProvider implements ProtectionProvider {
     public boolean canDamageEntity(World world, Entity entity, GameProfile profile, PlayerEntity player) {
         if (!(world instanceof ServerWorld sw)) return true;
 
-        player = CommonBridge.tryResolveProtectionPlayer(sw, profile, player);
+        player = FakePlayerProvider.tryResolveProtectionPlayer(sw, profile, player);
 
         if (player == null) return true;
 
