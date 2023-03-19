@@ -34,6 +34,7 @@ repositories {
     }
     maven { url "https://maven.nucleoid.xyz/" }
     maven { url "https://ladysnake.jfrog.io/artifactory/mods" }
+    maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
     maven { url 'https://maven.wispforest.io' }
     maven { url "https://maven.architectury.dev/" }
     maven { url 'https://maven.blamejared.com' }
@@ -41,6 +42,8 @@ repositories {
         name = "Fuzs Mod Resources"
         url = "https://raw.githubusercontent.com/Fuzss/modresources/main/maven/"
     }
+    maven { url "https://jitpack.io" }
+    mavenLocal()
 }
 
 configurations {
@@ -74,9 +77,10 @@ dependencies {
 
     modCompileOnly "curse.maven:open-parties-and-claims-636608:${project.opac_version}"
 
-    modLocalRuntime "curse.maven:open-parties-and-claims-636608:${project.opac_version}"
-    modLocalRuntime "fuzs.forgeconfigapiport:forgeconfigapiport-fabric:${project.forgeconfigapiport_version}"
+//    modLocalRuntime "curse.maven:open-parties-and-claims-636608:${project.opac_version}"
+//    modLocalRuntime "fuzs.forgeconfigapiport:forgeconfigapiport-fabric:${project.forgeconfigapiport_version}"
 
+    modLocalRuntime "io.wispforest:gadget:${project.gadget_version}"
     modLocalRuntime "maven.modrinth:lazydfu:0.1.2"
 }
 
