@@ -77,8 +77,8 @@ dependencies {
 
     modCompileOnly "curse.maven:open-parties-and-claims-636608:${project.opac_version}"
 
-//    modLocalRuntime "curse.maven:open-parties-and-claims-636608:${project.opac_version}"
-//    modLocalRuntime "fuzs.forgeconfigapiport:forgeconfigapiport-fabric:${project.forgeconfigapiport_version}"
+    modLocalRuntime "curse.maven:open-parties-and-claims-636608:${project.opac_version}"
+    modLocalRuntime "fuzs.forgeconfigapiport:forgeconfigapiport-fabric:${project.forgeconfigapiport_version}"
 
     modLocalRuntime "io.wispforest:gadget:${project.gadget_version}"
     modLocalRuntime "maven.modrinth:lazydfu:0.1.2"

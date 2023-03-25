@@ -3,6 +3,8 @@ package me.basiqueevangelist.commonbridge.asm;
 import net.fabricmc.loader.api.FabricLoader;
 import org.objectweb.asm.tree.AnnotationNode;
 import org.objectweb.asm.tree.ClassNode;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
 import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
 import org.spongepowered.asm.service.MixinService;
@@ -13,6 +15,8 @@ import java.util.List;
 import java.util.Set;
 
 public class Maldenhagen implements IMixinConfigPlugin {
+    private static final Logger LOGGER = LoggerFactory.getLogger("CommonBridge/Maldenhagen");
+
     @Override
     public void onLoad(String mixinPackage) {
 
@@ -36,6 +40,27 @@ public class Maldenhagen implements IMixinConfigPlugin {
 
             if (devOnlyAnnot != null && !FabricLoader.getInstance().isDevelopmentEnvironment())
                 return false;
+
+            AnnotationNode propAnnot = Annotations.getInvisible(cn, SystemPropertyControlled.class);
+
+            if (propAnnot != null) {
+                boolean enabled = Annotations.getValue(propAnnot, "defaultValue", (Boolean) true);
+
+                try {
+                    enabled = Boolean.parseBoolean(System.getProperty(Annotations.getValue(propAnnot, "value")));
+                } catch (IllegalArgumentException | NullPointerException e) {
+                    // ...
+                }
+
+                if (!enabled)
+                    return false;
+            }
+
+            AnnotationNode infoAnnot = Annotations.getInvisible(cn, InfoOnEnabled.class);
+
+            if (infoAnnot != null) {
+                LOGGER.info(Annotations.getValue(infoAnnot, "value"));
+            }
         } catch (IOException | ClassNotFoundException e) {
             // ...
         }
