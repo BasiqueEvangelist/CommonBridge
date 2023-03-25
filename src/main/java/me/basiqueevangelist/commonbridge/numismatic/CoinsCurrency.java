@@ -4,12 +4,14 @@ import com.glisco.numismaticoverhaul.NumismaticOverhaul;
 import com.glisco.numismaticoverhaul.currency.Currency;
 import com.glisco.numismaticoverhaul.currency.CurrencyConverter;
 import com.glisco.numismaticoverhaul.item.CoinItem;
+import com.glisco.numismaticoverhaul.item.MoneyBagItem;
 import com.glisco.numismaticoverhaul.item.NumismaticOverhaulItems;
 import eu.pb4.common.economy.api.EconomyCurrency;
 import eu.pb4.common.economy.api.EconomyProvider;
 import net.minecraft.client.resource.language.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.MutableText;
+import net.minecraft.text.Style;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
@@ -65,11 +67,22 @@ public class CoinsCurrency implements EconomyCurrency {
     }
 
     @Override
+    public ItemStack formatValueStack(long value) {
+        var staccs = CurrencyConverter.getAsItemStackList(value);
+        ItemStack stack;
+
+        if (staccs.size() != 1)
+            stack = MoneyBagItem.create(value);
+        else
+            stack = staccs.get(0);
+
+        stack.setCustomName(this.formatValueText(value, false).copy().setStyle(Style.EMPTY.withItalic(false)));
+        return stack;
+    }
+
+    @Override
     public String formatValue(long value, boolean precise) {
         if (precise) return "¢" + value;
-
-        if (value == 0) {
-        }
 
         StringBuilder sb = new StringBuilder();
 
