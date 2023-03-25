@@ -23,7 +23,6 @@
     ],
     "custom": {
         "modmenu": {
-            "badges": ["library"],
             "links": {
                 "modmenu.discord": "https://wispforest.io/discord"
             }
