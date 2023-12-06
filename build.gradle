@@ -33,7 +33,7 @@ repositories {
         }
     }
     maven { url "https://maven.nucleoid.xyz/" }
-    maven { url "https://ladysnake.jfrog.io/artifactory/mods" }
+    maven { url "https://maven.ladysnake.org/releases" }
     maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
     maven { url 'https://maven.wispforest.io' }
     maven { url "https://maven.architectury.dev/" }
@@ -63,26 +63,19 @@ dependencies {
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
     modImplementation include("eu.pb4:common-protection-api:1.0.0")
-    modImplementation include("eu.pb4:common-economy-api:1.1.0")
+    modImplementation include("eu.pb4:common-economy-api:1.1.1")
 
     modLocalRuntime modCompileOnly("maven.modrinth:numismatic-overhaul:${project.numismatic_version}")
     modLocalRuntime modCompileOnly("dev.onyxstudios.cardinal-components-api:cardinal-components-base:${project.cca_version}")
     modLocalRuntime modCompileOnly("dev.onyxstudios.cardinal-components-api:cardinal-components-entity:${project.cca_version}")
     modLocalRuntime modCompileOnly("io.wispforest:owo-lib:${project.owo_version}")
 
-    modCompileOnly "dev.ftb.mods:ftb-chunks-fabric:${project.ftb_chunks_version}"
-    modCompileOnly "dev.ftb.mods:ftb-library-fabric:${project.ftb_library_version}"
+    modCompileOnly "maven.modrinth:open-parties-and-claims:${project.opac_version}"
 
-//    modLocalRuntime "dev.ftb.mods:ftb-chunks-fabric:${project.ftb_chunks_version}"
-//    modLocalRuntime "dev.ftb.mods:ftb-library-fabric:${project.ftb_library_version}"
-
-    modCompileOnly "curse.maven:open-parties-and-claims-636608:${project.opac_version}"
-
-    modLocalRuntime "curse.maven:open-parties-and-claims-636608:${project.opac_version}"
+    modLocalRuntime "maven.modrinth:open-parties-and-claims:${project.opac_version}"
     modLocalRuntime "fuzs.forgeconfigapiport:forgeconfigapiport-fabric:${project.forgeconfigapiport_version}"
 
     modLocalRuntime "io.wispforest:gadget:${project.gadget_version}"
-    modLocalRuntime "maven.modrinth:lazydfu:0.1.2"
     modLocalRuntime "com.terraformersmc:modmenu:${project.modmenu_version}"
 }
 
