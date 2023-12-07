@@ -1,5 +1,6 @@
 package me.basiqueevangelist.commonbridge;
 
+import me.basiqueevangelist.commonbridge.deconomy.DiamondEconomyProvider;
 import me.basiqueevangelist.commonbridge.numismatic.NumismaticEconomyProvider;
 import me.basiqueevangelist.commonbridge.opac.OpacProtectionProvider;
 import net.fabricmc.api.ModInitializer;
@@ -14,6 +15,9 @@ public class CommonBridge implements ModInitializer {
 
         if (FabricLoader.getInstance().isModLoaded("openpartiesandclaims"))
             OpacProtectionProvider.init();
+
+        if (FabricLoader.getInstance().isModLoaded("diamondeconomy"))
+            DiamondEconomyProvider.init();
     }
 
     public static Identifier id(String path) {

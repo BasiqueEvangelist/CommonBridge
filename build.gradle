@@ -75,6 +75,8 @@ dependencies {
     modLocalRuntime "maven.modrinth:open-parties-and-claims:${project.opac_version}"
     modLocalRuntime "fuzs.forgeconfigapiport:forgeconfigapiport-fabric:${project.forgeconfigapiport_version}"
 
+    modCompileOnly "maven.modrinth:diamond-economy:${project.diamond_economy_version}"
+
     modLocalRuntime "io.wispforest:gadget:${project.gadget_version}"
     modLocalRuntime "com.terraformersmc:modmenu:${project.modmenu_version}"
 }
