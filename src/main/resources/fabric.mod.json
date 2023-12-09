@@ -11,7 +11,8 @@
         "Patbox"
     ],
     "contact": {
-        "repo": "https://github.com/BasiqueEvangelist/CommonBridge"
+        "repo": "https://github.com/BasiqueEvangelist/CommonBridge",
+        "issues": "https://github.com/BasiqueEvangelist/CommonBridge/issues"
     },
     "license": "MIT",
     "icon": "assets/common-bridge/icon.png",
