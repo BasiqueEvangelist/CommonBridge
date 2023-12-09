@@ -47,7 +47,7 @@ public class CommonBridge implements ModInitializer {
             return false;
         }
 
-        String propKey = "commonBridge." + modId;
+        String propKey = "common-bridge." + modId;
         if (System.getProperty(propKey) != null && !Boolean.getBoolean(propKey)) {
             LOGGER.info("Skipping provider for {}, as the user has manually opted out", modId);
             return false;
