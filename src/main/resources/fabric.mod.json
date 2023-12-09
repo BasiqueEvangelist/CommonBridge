@@ -28,7 +28,8 @@
     "custom": {
         "modmenu": {
             "links": {
-                "modmenu.discord": "https://wispforest.io/discord"
+                "modmenu.discord": "https://wispforest.io/discord",
+                "modmenu.modrinth": "https://modrinth.com/mod/common-bridge"
             }
         }
     },
