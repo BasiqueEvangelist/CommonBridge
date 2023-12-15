@@ -1,11 +1,15 @@
 package me.basiqueevangelist.commonbridge;
 
 import me.basiqueevangelist.commonbridge.deconomy.DiamondEconomyProvider;
+import me.basiqueevangelist.commonbridge.impactor.ImpactorEconomyService;
 import me.basiqueevangelist.commonbridge.lightmans.LightmansEconomyProvider;
 import me.basiqueevangelist.commonbridge.numismatic.NumismaticEconomyProvider;
 import me.basiqueevangelist.commonbridge.opac.OpacProtectionProvider;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.loader.api.FabricLoader;
+import net.fabricmc.loader.api.ModContainer;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,8 +17,14 @@ import org.slf4j.LoggerFactory;
 public class CommonBridge implements ModInitializer {
     private static final Logger LOGGER = LoggerFactory.getLogger("CommonBridge");
 
+    public static final ModContainer MOD_CONTAINER = FabricLoader.getInstance().getModContainer("common-bridge").orElseThrow();
+    public static MinecraftServer SERVER;
+
     @Override
     public void onInitialize() {
+        ServerLifecycleEvents.SERVER_STARTING.register(server -> SERVER = server);
+        ServerLifecycleEvents.SERVER_STOPPED.register(server -> SERVER = null);
+
         if (shouldEnable("numismatic-overhaul"))
             NumismaticEconomyProvider.init();
 
@@ -26,6 +36,9 @@ public class CommonBridge implements ModInitializer {
 
         if (shouldEnable("lightmanscurrency"))
             LightmansEconomyProvider.init();
+
+        if (shouldEnable("impactor"))
+            ImpactorEconomyService.init();
 
         LOGGER.info("Common Bridge initialized.");
     }

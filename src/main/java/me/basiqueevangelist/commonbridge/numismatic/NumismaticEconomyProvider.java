@@ -1,6 +1,5 @@
 package me.basiqueevangelist.commonbridge.numismatic;
 
-import com.glisco.numismaticoverhaul.item.MoneyBagItem;
 import com.glisco.numismaticoverhaul.item.NumismaticOverhaulItems;
 import com.mojang.authlib.GameProfile;
 import eu.pb4.common.economy.api.CommonEconomy;
