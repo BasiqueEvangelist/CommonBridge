@@ -86,7 +86,7 @@ public class ImpactorEconomyService implements EconomyService {
     private GameProfile fromUUID(UUID playerId) {
         return Objects.requireNonNullElseGet(
             CommonBridge.SERVER.getUserCache().getByUuid(playerId).orElse(null),
-            () -> new GameProfile(playerId, null)
+            () -> new GameProfile(playerId, playerId.toString())
         );
     }
 }
