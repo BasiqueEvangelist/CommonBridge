@@ -6,6 +6,8 @@ import eu.pb4.common.economy.api.EconomyAccount;
 import eu.pb4.common.economy.api.EconomyCurrency;
 import eu.pb4.common.economy.api.EconomyProvider;
 import io.github.lightman314.lightmanscurrency.common.core.ModItems;
+import io.github.lightman314.lightmanscurrency.common.money.bank.BankAccount;
+import io.github.lightman314.lightmanscurrency.common.money.bank.BankSaveData;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.text.Text;
@@ -30,12 +32,20 @@ public class LightmansEconomyProvider implements EconomyProvider {
     public @Nullable EconomyAccount getAccount(MinecraftServer server, GameProfile profile, String accountId) {
         if (!accountId.equals(LightmansBankAccount.ID.getPath())) return null;
 
-        return new LightmansBankAccount(profile.getId(), server);
+        BankAccount account = BankSaveData.GetBankAccount(false, profile.getId());
+
+        if (account == null) return null;
+
+        return new LightmansBankAccount(profile.getId(), server, account);
     }
 
     @Override
     public Collection<EconomyAccount> getAccounts(MinecraftServer server, GameProfile profile) {
-        return Collections.singleton(new LightmansBankAccount(profile.getId(), server));
+        BankAccount account = BankSaveData.GetBankAccount(false, profile.getId());
+
+        if (account == null) return Collections.emptySet();
+
+        return Collections.singleton(new LightmansBankAccount(profile.getId(), server, account));
     }
 
     @Override

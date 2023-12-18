@@ -24,11 +24,10 @@ public class LightmansBankAccount implements EconomyAccount {
     private final MinecraftServer server;
     private final BankAccount account;
 
-    public LightmansBankAccount(UUID playerId, MinecraftServer server) {
+    public LightmansBankAccount(UUID playerId, MinecraftServer server, BankAccount account) {
         this.playerId = playerId;
         this.server = server;
-
-        this.account = BankSaveData.GetBankAccount(false, playerId);
+        this.account = account;
     }
 
     @Override
