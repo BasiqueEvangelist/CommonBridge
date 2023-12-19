@@ -6,7 +6,9 @@ import com.epherical.octoecon.api.event.EconomyEvents;
 import eu.pb4.common.economy.api.CommonEconomy;
 import eu.pb4.common.economy.api.EconomyCurrency;
 import me.basiqueevangelist.commonbridge.CommonBridge;
+import me.basiqueevangelist.commonbridge.octo.from.OctoEconomyProvider;
 import me.basiqueevangelist.commonbridge.octo.passive.PassiveEconomy;
+import me.basiqueevangelist.commonbridge.octo.to.CommonCurrency;
 import net.fabricmc.fabric.api.event.Event;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.minecraft.util.Identifier;
@@ -36,5 +38,7 @@ public class CommonOctoEconomy {
 
             return currencies;
         });
+
+        OctoEconomyProvider.init();
     }
 }

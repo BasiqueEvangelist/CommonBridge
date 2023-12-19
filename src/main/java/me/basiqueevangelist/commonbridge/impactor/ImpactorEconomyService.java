@@ -5,6 +5,8 @@ import com.google.common.collect.Multimap;
 import com.mojang.authlib.GameProfile;
 import eu.pb4.common.economy.api.CommonEconomy;
 import me.basiqueevangelist.commonbridge.CommonBridge;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
+import net.impactdev.impactor.api.Impactor;
 import net.impactdev.impactor.api.economy.EconomyService;
 import net.impactdev.impactor.api.economy.accounts.Account;
 import net.impactdev.impactor.api.economy.currency.Currency;
@@ -31,6 +33,15 @@ public class ImpactorEconomyService implements EconomyService {
             if (CommonEconomy.providers().isEmpty()) return;
 
             event.suggest(METADATA, ImpactorEconomyService::new, 1);
+        });
+
+        ServerLifecycleEvents.SERVER_STARTED.register(server -> {
+            var service = Impactor.instance().services().provide(EconomyService.class);
+
+            if (service instanceof ImpactorEconomyService ies) {
+                // Just to make sure Octo Economy API or whatever works.
+                ies.currencies.reload();
+            }
         });
     }
 

@@ -1,4 +1,4 @@
-package me.basiqueevangelist.commonbridge.octo;
+package me.basiqueevangelist.commonbridge.octo.to;
 
 import com.epherical.octoecon.api.BalanceProvider;
 import com.epherical.octoecon.api.Currency;
@@ -39,6 +39,11 @@ public class CommonCurrency implements Currency {
     public Text getCurrencySymbol() {
         // TODO: fix names
         return wrapping.name();
+    }
+
+    @Override
+    public int decimalPlaces() {
+        return 0;
     }
 
     @Override
@@ -94,7 +99,7 @@ public class CommonCurrency implements Currency {
 
         @Override
         public Transaction sendTo(User from, User to, double amount, Currency currencyUsed) {
-            var tx = TransactionFactory.transaction(from, amount, currencyUsed, Transaction.Type.DEPOSIT);
+            var tx = TransactionFactory.transaction(from, -amount, currencyUsed, Transaction.Type.DEPOSIT);
 
             if (currencyUsed != CommonCurrency.this) return tx.fail("Cannot use unrelated currency with balance provider");
 

@@ -28,6 +28,20 @@ public class ImpactorCurrencyProvider implements CurrencyProvider {
         }
     }
 
+    public void reload() {
+        currencies.clear();
+        currenciesByKey.clear();
+
+        for (var currency : CommonEconomy.getCurrencies(CommonBridge.SERVER)) {
+            var wrapped = new CommonImpactorCurrency(currency, currencies.isEmpty());
+
+            if (wrapped.primary()) primary = wrapped;
+
+            currencies.add(wrapped);
+            currenciesByKey.put(currency.id(), wrapped);
+        }
+    }
+
     @Override
     public @NotNull Currency primary() {
         return primary;

@@ -1,4 +1,4 @@
-package me.basiqueevangelist.commonbridge.octo;
+package me.basiqueevangelist.commonbridge.octo.to;
 
 import com.epherical.octoecon.api.Currency;
 import com.epherical.octoecon.api.transaction.Transaction;
