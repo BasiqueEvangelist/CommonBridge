@@ -3,12 +3,14 @@ package me.basiqueevangelist.commonbridge.octo.from;
 import com.epherical.octoecon.api.Currency;
 import eu.pb4.common.economy.api.EconomyCurrency;
 import eu.pb4.common.economy.api.EconomyProvider;
+import me.basiqueevangelist.commonbridge.util.CurrencyUtils;
+import me.basiqueevangelist.commonbridge.util.ExtraEconomyCurrency;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
-public class OctoEconomyCurrency implements EconomyCurrency {
+public class OctoEconomyCurrency implements EconomyCurrency, ExtraEconomyCurrency {
     private final Currency wrapped;
     private final Identifier id;
 
@@ -22,6 +24,26 @@ public class OctoEconomyCurrency implements EconomyCurrency {
     @Override
     public Text name() {
         return wrapped.getCurrencyPluralName();
+    }
+
+    @Override
+    public Text nameSingular() {
+        return wrapped.getCurrencySingularName();
+    }
+
+    @Override
+    public Text namePlural() {
+        return wrapped.getCurrencyPluralName();
+    }
+
+    @Override
+    public Text symbol() {
+        return wrapped.getCurrencySymbol();
+    }
+
+    @Override
+    public int decimalPlaces() {
+        return wrapped.decimalPlaces();
     }
 
     @Override
@@ -53,11 +75,11 @@ public class OctoEconomyCurrency implements EconomyCurrency {
     }
 
     public double toOctoValue(long common) {
-        return (double)(common) / Math.pow(10, wrapped.decimalPlaces());
+        return CurrencyUtils.toDouble(this, common);
     }
 
     public long fromOctoValue(double octo) {
-        return (long)(octo * Math.pow(10, wrapped.decimalPlaces()));
+        return CurrencyUtils.fromDouble(this, octo);
     }
 
     @Override

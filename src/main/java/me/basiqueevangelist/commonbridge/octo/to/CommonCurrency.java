@@ -8,6 +8,7 @@ import com.epherical.octoecon.api.user.User;
 import com.mojang.authlib.GameProfile;
 import eu.pb4.common.economy.api.EconomyCurrency;
 import me.basiqueevangelist.commonbridge.CommonBridge;
+import me.basiqueevangelist.commonbridge.util.CurrencyUtils;
 import net.minecraft.text.Text;
 import org.jetbrains.annotations.Nullable;
 
@@ -25,37 +26,40 @@ public class CommonCurrency implements Currency {
 
     @Override
     public Text getCurrencySingularName() {
-        // TODO: fix names
-        return wrapping.name();
+        return CurrencyUtils.nameSingular(wrapping);
     }
 
     @Override
     public Text getCurrencyPluralName() {
-        // TODO: fix names
-        return wrapping.name();
+        return CurrencyUtils.namePlural(wrapping);
     }
 
     @Override
     public Text getCurrencySymbol() {
-        // TODO: fix names
-        return wrapping.name();
+        return CurrencyUtils.symbol(wrapping);
     }
 
     @Override
     public int decimalPlaces() {
-        return 0;
+        return CurrencyUtils.decimalPlaces(wrapping);
     }
 
     @Override
     public Text format(double value) {
-        // hey guys converting to long definitely won't cause any problems right
-        return wrapping.formatValueText((long) value, false);
+        return wrapping.formatValueText(toCommonValue(value), false);
     }
 
     @Override
     public Text format(double value, int decimalPlaces) {
-        // hey guys converting to long definitely won't cause any problems right
-        return wrapping.formatValueText((long) value, false);
+        return wrapping.formatValueText(toCommonValue(value), false);
+    }
+
+    public long toCommonValue(double octo) {
+        return CurrencyUtils.fromDouble(wrapping, octo);
+    }
+
+    public double toOctoValue(long common) {
+        return CurrencyUtils.toDouble(wrapping, common);
     }
 
     @Override
@@ -75,18 +79,18 @@ public class CommonCurrency implements Currency {
 
             if (account == null) return 0;
 
-            return account.balance();
+            return toOctoValue(account.balance());
         }
 
         @Override
         public Transaction setBalance(User user, double amount, Currency currencyUsed) {
-            var tx = TransactionFactory.transaction(user, amount, currencyUsed, Transaction.Type.SET);
+            var tx = TransactionFactory.transaction(user, toOctoValue(toCommonValue(amount)), currencyUsed, Transaction.Type.SET);
             
             if (currencyUsed != CommonCurrency.this) return tx.fail("Cannot use unrelated currency with balance provider");
 
-            long value = (long) amount;
+            long value = toCommonValue(amount);
 
-            if (value != amount) return tx.fail("Amount cannot be represented as a long");
+//            if (value != amount) return tx.fail("Amount cannot be represented as a long");
 
             var account = wrapping.provider().getDefaultAccount(CommonBridge.SERVER, profileFromUser(user), wrapping);
 
@@ -99,13 +103,13 @@ public class CommonCurrency implements Currency {
 
         @Override
         public Transaction sendTo(User from, User to, double amount, Currency currencyUsed) {
-            var tx = TransactionFactory.transaction(from, -amount, currencyUsed, Transaction.Type.DEPOSIT);
+            var tx = TransactionFactory.transaction(from, -toOctoValue(toCommonValue(amount)), currencyUsed, Transaction.Type.DEPOSIT);
 
             if (currencyUsed != CommonCurrency.this) return tx.fail("Cannot use unrelated currency with balance provider");
 
-            long value = (long) amount;
+            long value = toCommonValue(amount);
 
-            if (value != amount) return tx.fail("Amount cannot be represented as a long");
+//            if (value != amount) return tx.fail("Amount cannot be represented as a long");
 
             var fromAccount = wrapping.provider().getDefaultAccount(CommonBridge.SERVER, profileFromUser(from), wrapping);
             var toAccount = wrapping.provider().getDefaultAccount(CommonBridge.SERVER, profileFromUser(to), wrapping);
@@ -129,13 +133,13 @@ public class CommonCurrency implements Currency {
 
         @Override
         public Transaction deposit(User user, double amount, String reason, Currency currencyUsed) {
-            var tx = TransactionFactory.transaction(user, amount, currencyUsed, Transaction.Type.DEPOSIT);
+            var tx = TransactionFactory.transaction(user, toOctoValue(toCommonValue(amount)), currencyUsed, Transaction.Type.DEPOSIT);
 
             if (currencyUsed != CommonCurrency.this) return tx.fail("Cannot use unrelated currency with balance provider");
 
-            long value = (long) amount;
+            long value = toCommonValue(amount);
 
-            if (value != amount) return tx.fail("Amount cannot be represented as a long");
+//            if (value != amount) return tx.fail("Amount cannot be represented as a long");
 
             var account = wrapping.provider().getDefaultAccount(CommonBridge.SERVER, profileFromUser(user), wrapping);
 
@@ -151,13 +155,13 @@ public class CommonCurrency implements Currency {
 
         @Override
         public Transaction withdraw(User user, double amount, String reason, Currency currencyUsed) {
-            var tx = TransactionFactory.transaction(user, amount, currencyUsed, Transaction.Type.WITHDRAW);
+            var tx = TransactionFactory.transaction(user, toOctoValue(toCommonValue(amount)), currencyUsed, Transaction.Type.WITHDRAW);
 
             if (currencyUsed != CommonCurrency.this) return tx.fail("Cannot use unrelated currency with balance provider");
 
-            long value = (long) amount;
+            long value = toCommonValue(amount);
 
-            if (value != amount) return tx.fail("Amount cannot be represented as a long");
+//            if (value != amount) return tx.fail("Amount cannot be represented as a long");
 
             var account = wrapping.provider().getDefaultAccount(CommonBridge.SERVER, profileFromUser(user), wrapping);
 

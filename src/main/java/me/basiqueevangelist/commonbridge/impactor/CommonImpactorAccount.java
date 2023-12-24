@@ -1,6 +1,7 @@
 package me.basiqueevangelist.commonbridge.impactor;
 
 import eu.pb4.common.economy.api.EconomyAccount;
+import me.basiqueevangelist.commonbridge.util.CurrencyUtils;
 import net.impactdev.impactor.api.economy.accounts.Account;
 import net.impactdev.impactor.api.economy.currency.Currency;
 import net.impactdev.impactor.api.economy.transactions.EconomyTransaction;
@@ -39,21 +40,21 @@ public class CommonImpactorAccount implements Account {
 
     @Override
     public @NotNull BigDecimal balance() {
-        return BigDecimal.valueOf(account.balance());
+        return CurrencyUtils.toBigDecimal(currency.wrapping(), account.balance());
     }
 
     @Override
     public @NotNull EconomyTransaction set(BigDecimal amount) {
         var tx = TransactionFactory.transaction(this, amount, EconomyTransactionType.SET);
 
-        long value;
+        long value = CurrencyUtils.fromBigDecimal(currency.wrapping(), amount);
 
-        try {
-            value = amount.longValueExact();
-        } catch (ArithmeticException arith) {
-            // todo: use translations.
-            return tx.invalid(Text.literal("Common Bridge: couldn't convert amount to long"));
-        }
+//        try {
+//            value = amount.longValueExact();
+//        } catch (ArithmeticException arith) {
+//            // todo: use translations.
+//            return tx.invalid(Text.literal("Common Bridge: couldn't convert amount to long"));
+//        }
 
         account.setBalance(value);
 
@@ -64,14 +65,14 @@ public class CommonImpactorAccount implements Account {
     public @NotNull EconomyTransaction withdraw(BigDecimal amount) {
         var tx = TransactionFactory.transaction(this, amount, EconomyTransactionType.WITHDRAW);
 
-        long value;
+        long value = CurrencyUtils.fromBigDecimal(currency.wrapping(), amount);
 
-        try {
-            value = amount.longValueExact();
-        } catch (ArithmeticException arith) {
-            // todo: use translations.
-            return tx.invalid(Text.literal("Common Bridge: couldn't convert amount to long"));
-        }
+//        try {
+//            value = amount.longValueExact();
+//        } catch (ArithmeticException arith) {
+//            // todo: use translations.
+//            return tx.invalid(Text.literal("Common Bridge: couldn't convert amount to long"));
+//        }
 
         var commonTx = account.decreaseBalance(value);
 
@@ -90,14 +91,14 @@ public class CommonImpactorAccount implements Account {
     public @NotNull EconomyTransaction deposit(BigDecimal amount) {
         var tx = TransactionFactory.transaction(this, amount, EconomyTransactionType.DEPOSIT);
 
-        long value;
+        long value = CurrencyUtils.fromBigDecimal(currency.wrapping(), amount);
 
-        try {
-            value = amount.longValueExact();
-        } catch (ArithmeticException arith) {
-            // todo: use translations.
-            return tx.invalid(Text.literal("Common Bridge: couldn't convert amount to long"));
-        }
+//        try {
+//            value = amount.longValueExact();
+//        } catch (ArithmeticException arith) {
+//            // todo: use translations.
+//            return tx.invalid(Text.literal("Common Bridge: couldn't convert amount to long"));
+//        }
 
         var commonTx = account.increaseBalance(value);
 
@@ -112,14 +113,14 @@ public class CommonImpactorAccount implements Account {
     public @NotNull EconomyTransferTransaction transfer(Account to, BigDecimal amount) {
         var tx = TransactionFactory.transfer(this, to, amount);
 
-        long value;
+        long value = CurrencyUtils.fromBigDecimal(currency.wrapping(), amount);
 
-        try {
-            value = amount.longValueExact();
-        } catch (ArithmeticException arith) {
-            // todo: use translations.
-            return tx.invalid(Text.literal("Common Bridge: couldn't convert amount to long"));
-        }
+//        try {
+//            value = amount.longValueExact();
+//        } catch (ArithmeticException arith) {
+//            // todo: use translations.
+//            return tx.invalid(Text.literal("Common Bridge: couldn't convert amount to long"));
+//        }
 
         EconomyAccount toCommon = ((CommonImpactorAccount) to).account;
 

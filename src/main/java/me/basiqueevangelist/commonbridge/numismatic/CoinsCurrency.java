@@ -8,6 +8,7 @@ import com.glisco.numismaticoverhaul.item.MoneyBagItem;
 import com.glisco.numismaticoverhaul.item.NumismaticOverhaulItems;
 import eu.pb4.common.economy.api.EconomyCurrency;
 import eu.pb4.common.economy.api.EconomyProvider;
+import me.basiqueevangelist.commonbridge.util.ExtraEconomyCurrency;
 import net.minecraft.client.resource.language.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.MutableText;
@@ -16,13 +17,28 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 
-public class CoinsCurrency implements EconomyCurrency {
+public class CoinsCurrency implements EconomyCurrency, ExtraEconomyCurrency {
     public static final CoinsCurrency INSTANCE = new CoinsCurrency();
     public static final Identifier ID = NumismaticOverhaul.id("coins");
 
     @Override
     public Text name() {
         return Text.literal("Coins");
+    }
+
+    @Override
+    public Text nameSingular() {
+        return Text.literal("Coin");
+    }
+
+    @Override
+    public Text namePlural() {
+        return Text.literal("Coins");
+    }
+
+    @Override
+    public Text symbol() {
+        return Text.literal("¢");
     }
 
     @Override

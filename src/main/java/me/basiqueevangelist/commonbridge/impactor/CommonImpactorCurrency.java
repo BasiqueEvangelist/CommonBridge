@@ -1,6 +1,7 @@
 package me.basiqueevangelist.commonbridge.impactor;
 
 import eu.pb4.common.economy.api.EconomyCurrency;
+import me.basiqueevangelist.commonbridge.util.CurrencyUtils;
 import net.impactdev.impactor.api.economy.currency.Currency;
 import net.kyori.adventure.key.Key;
 import net.kyori.adventure.text.Component;
@@ -26,20 +27,17 @@ public class CommonImpactorCurrency implements Currency {
 
     @Override
     public Component singular() {
-        // TODO: fix names
-        return wrapping.name().asComponent();
+        return CurrencyUtils.nameSingular(wrapping).asComponent();
     }
 
     @Override
     public Component plural() {
-        // TODO: fix names
-        return wrapping.name().asComponent();
+        return CurrencyUtils.namePlural(wrapping).asComponent();
     }
 
     @Override
     public Component symbol() {
-        // TODO: fix names
-        return wrapping.name().asComponent();
+        return CurrencyUtils.symbol(wrapping).asComponent();
     }
 
     @Override
@@ -54,7 +52,7 @@ public class CommonImpactorCurrency implements Currency {
 
     @Override
     public int decimals() {
-        return 0;
+        return CurrencyUtils.decimalPlaces(wrapping);
     }
 
     @Override
@@ -69,8 +67,7 @@ public class CommonImpactorCurrency implements Currency {
 
     @Override
     public Component format(@NotNull BigDecimal amount, boolean condensed, @NotNull Locale locale) {
-        // guys converting from big decimal to long won't definitely lose information right
-        long value = amount.longValue();
+        long value = CurrencyUtils.fromBigDecimal(wrapping, amount);
 
         return wrapping.formatValueText(value, condensed).asComponent();
     }
