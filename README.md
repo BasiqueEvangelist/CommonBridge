@@ -7,5 +7,5 @@ Patbox's [Common Protection API](https://github.com/Patbox/common-protection-api
 - [Numismatic Overhaul](https://modrinth.com/mod/numismatic-overhaul)
 - [Diamond Economy](https://modrinth.com/mod/diamond-economy)
 - [Lightman's Currency](https://modrinth.com/mod/lightmans-currency/)
-- [Impactor](https://modrinth.com/mod/impactor) (not yet released)
-- [Octo Economy API](https://github.com/ExcessiveAmountsOfZombies/OctoEconomyApi/) (not yet released)
+- [Impactor](https://modrinth.com/mod/impactor)
+- [Octo Economy API](https://github.com/ExcessiveAmountsOfZombies/OctoEconomyApi/)
