@@ -2,10 +2,10 @@ package me.basiqueevangelist.commonbridge.impactor;
 
 import eu.pb4.common.economy.api.CommonEconomy;
 import me.basiqueevangelist.commonbridge.CommonBridge;
+import me.basiqueevangelist.commonbridge.util.AdventureUtils;
 import net.impactdev.impactor.api.economy.currency.Currency;
 import net.impactdev.impactor.api.economy.currency.CurrencyProvider;
 import net.kyori.adventure.key.Key;
-import net.kyori.adventure.platform.fabric.FabricAudiences;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.NotNull;
 
@@ -14,18 +14,11 @@ import java.util.concurrent.CompletableFuture;
 
 public class ImpactorCurrencyProvider implements CurrencyProvider {
     private final Set<Currency> currencies = new HashSet<>();
-    private final Map<Identifier, Currency> currenciesByKey = new HashMap<>();
+    private final Map<Key, Currency> currenciesByKey = new HashMap<>();
     private Currency primary;
 
     public ImpactorCurrencyProvider() {
-        for (var currency : CommonEconomy.getCurrencies(CommonBridge.SERVER)) {
-            var wrapped = new CommonImpactorCurrency(currency, currencies.isEmpty());
-
-            if (wrapped.primary()) primary = wrapped;
-
-            currencies.add(wrapped);
-            currenciesByKey.put(currency.id(), wrapped);
-        }
+        reload();
     }
 
     public void reload() {
@@ -38,7 +31,7 @@ public class ImpactorCurrencyProvider implements CurrencyProvider {
             if (wrapped.primary()) primary = wrapped;
 
             currencies.add(wrapped);
-            currenciesByKey.put(currency.id(), wrapped);
+            currenciesByKey.put(AdventureUtils.toAdventure(currency.id()), wrapped);
         }
     }
 
@@ -49,7 +42,7 @@ public class ImpactorCurrencyProvider implements CurrencyProvider {
 
     @Override
     public Optional<Currency> currency(Key key) {
-        return Optional.ofNullable(currenciesByKey.get(FabricAudiences.toNative(key)));
+        return Optional.ofNullable(currenciesByKey.get(key));
     }
 
     @Override

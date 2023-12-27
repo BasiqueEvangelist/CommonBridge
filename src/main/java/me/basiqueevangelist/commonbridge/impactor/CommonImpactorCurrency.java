@@ -1,6 +1,7 @@
 package me.basiqueevangelist.commonbridge.impactor;
 
 import eu.pb4.common.economy.api.EconomyCurrency;
+import me.basiqueevangelist.commonbridge.util.AdventureUtils;
 import me.basiqueevangelist.commonbridge.util.CurrencyUtils;
 import net.impactdev.impactor.api.economy.currency.Currency;
 import net.kyori.adventure.key.Key;
@@ -15,29 +16,39 @@ public class CommonImpactorCurrency implements Currency {
     private final EconomyCurrency wrapping;
     private final boolean primary;
 
+    private final Key key;
+    private final Component singularAdv;
+    private final Component pluralAdv;
+    private final Component symbolAdv;
+
     public CommonImpactorCurrency(EconomyCurrency wrapping, boolean primary) {
         this.wrapping = wrapping;
         this.primary = primary;
+
+        this.key = AdventureUtils.toAdventure(wrapping.id());
+        this.singularAdv = AdventureUtils.toAdventure(CurrencyUtils.nameSingular(wrapping));
+        this.pluralAdv = AdventureUtils.toAdventure(CurrencyUtils.namePlural(wrapping));
+        this.symbolAdv = AdventureUtils.toAdventure(CurrencyUtils.symbol(wrapping));
     }
 
     @Override
     public Key key() {
-        return wrapping.id();
+        return key;
     }
 
     @Override
     public Component singular() {
-        return CurrencyUtils.nameSingular(wrapping).asComponent();
+        return singularAdv;
     }
 
     @Override
     public Component plural() {
-        return CurrencyUtils.namePlural(wrapping).asComponent();
+        return pluralAdv;
     }
 
     @Override
     public Component symbol() {
-        return CurrencyUtils.symbol(wrapping).asComponent();
+        return symbolAdv;
     }
 
     @Override
@@ -69,7 +80,7 @@ public class CommonImpactorCurrency implements Currency {
     public Component format(@NotNull BigDecimal amount, boolean condensed, @NotNull Locale locale) {
         long value = CurrencyUtils.fromBigDecimal(wrapping, amount);
 
-        return wrapping.formatValueText(value, condensed).asComponent();
+        return AdventureUtils.toAdventure(wrapping.formatValueText(value, condensed));
     }
 
     public EconomyCurrency wrapping() {

@@ -87,10 +87,6 @@ dependencies {
     modCompileOnly "net.impactdev.impactor.api:economy:${project.impactor_api_version}"
 
     modCompileOnly "net.kyori:adventure-api:${project.adventure_version}"
-    modCompileOnly "net.kyori:adventure-platform-fabric:${project.adventure_fabric_version}"
-
-    modLocalRuntime "net.kyori:adventure-api:${project.adventure_version}"
-    modLocalRuntime "net.kyori:adventure-platform-fabric:${project.adventure_fabric_version}"
 
     modLocalRuntime "com.cobblemon:fabric:${project.cobblemon_version}"
     modLocalRuntime "com.cobblemon:mod:${project.cobblemon_version}"

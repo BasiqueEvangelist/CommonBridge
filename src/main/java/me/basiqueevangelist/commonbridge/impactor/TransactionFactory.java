@@ -1,5 +1,6 @@
 package me.basiqueevangelist.commonbridge.impactor;
 
+import me.basiqueevangelist.commonbridge.util.AdventureUtils;
 import net.impactdev.impactor.api.economy.accounts.Account;
 import net.impactdev.impactor.api.economy.currency.Currency;
 import net.impactdev.impactor.api.economy.transactions.EconomyTransaction;
@@ -52,7 +53,7 @@ public interface TransactionFactory<T> {
         public @Nullable Supplier<Component> message() {
             if (messageText == null) return null;
 
-            return messageText::asComponent;
+            return () -> AdventureUtils.toAdventure(messageText);
         }
     }
 
@@ -72,7 +73,7 @@ public interface TransactionFactory<T> {
         public @Nullable Supplier<Component> message() {
             if (messageText == null) return null;
 
-            return messageText::asComponent;
+            return () -> AdventureUtils.toAdventure(messageText);
         }
     }
 }
